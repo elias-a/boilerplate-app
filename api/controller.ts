@@ -1,16 +1,19 @@
-import { dbInterface, DbInterface } from './dbInterface';
+import { models, Models } from './models';
 
 export class Controller {
-    dbInterface: DbInterface;
+    models: Models;
 
-    constructor(dbInterface: DbInterface) {
-        this.dbInterface = dbInterface;
+    constructor(models: Models) {
+        this.models = models;
     }
 
     async sendData() {
-        const data = await this.dbInterface.getData('1');
+        const data = await this.models.Data.findAll({
+            attributes: ['id', 'data']
+        });
+
         return { status: 200, data: data };
     }
 }
 
-export const controller = new Controller(dbInterface);
+export const controller = new Controller(models);
