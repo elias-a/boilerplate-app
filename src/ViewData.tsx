@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Button } from '@material-ui/core';
 
-function Component() {
+function ViewData() {
     const [data, setData] = useState([]);
 
     function handleSubmit() {
-        axios.get('/api/').then(res => {
+        axios.get('/api/get-data').then(res => {
             setData(res.data);
         });
     }
@@ -21,4 +21,4 @@ function Component() {
     );
 }
 
-export default Component;
+export default ViewData;

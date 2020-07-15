@@ -12,7 +12,16 @@ export class Controller {
             attributes: ['id', 'data']
         });
 
-        return { status: 200, data: data };
+        return { status: 200, result: data };
+    }
+
+    async addData(data: string) {
+        await this.models.Data.create({
+            id: Number(this.models.Data.count() + 1),
+            data: data
+        });
+        
+        return { status: 200, result: "Data added" }
     }
 }
 
