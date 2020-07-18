@@ -17,7 +17,6 @@ export class Controller {
 
     async addData(data: string) {
         await this.models.Data.create({
-            id: Number(this.models.Data.count() + 1),
             data: data
         });
         

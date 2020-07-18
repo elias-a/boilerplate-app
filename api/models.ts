@@ -15,10 +15,11 @@ export class Models {
     }
 
     async initData() {
-        this.Data = this.sequelize.define('data', {
+        this.Data = this.sequelize.define('Data', {
             id: {
                 type: DataTypes.INTEGER,
-                primaryKey: true
+                primaryKey: true,
+                autoIncrement: true
             },
             data: {
                 type: DataTypes.STRING
@@ -27,17 +28,14 @@ export class Models {
 
         await this.Data.sync();
 
-        if (!(await this.Data.findAll())) {
+        if (!(await this.Data.findAll()).length) {
             await this.Data.create({
-                id: 1,
                 data: "data from database"
             });
             await this.Data.create({
-                id: 2,
                 data: "more data from database"
             });
             await this.Data.create({
-                id: 3,
                 data: "even more data from database"
             });
         }
