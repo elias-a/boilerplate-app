@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button } from '@material-ui/core';
+import { Container, Button } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
+import { useStyles } from './styles';
 
 function ViewData() {
     const [data, setData] = useState([]);
     const [error, setError] = useState("");
+    const styles = useStyles();
 
     function handleSubmit() {
         axios.get('/api/get-data').then(res => {
@@ -17,13 +19,18 @@ function ViewData() {
     }
 
     return (
-        <div>
-            {data.map(d => { return <p key={d.id}>{d.data}</p>})}
+        <Container className={styles.container}>
+            {data.map(d => { return <p key={d.id} className={styles.data}>{d.data}</p>})}
             {error ? <Alert severity="error">{error}</Alert> : <></>}
-            <Button onClick={handleSubmit}>
-                Get data
-            </Button>
-        </div>
+            <form className={styles.form}>
+                <Button 
+                    className={styles.button}
+                    onClick={handleSubmit}
+                >
+                    Get data
+                </Button>
+            </form>
+        </Container>
     );
 }
 
