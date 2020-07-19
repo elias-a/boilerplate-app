@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bundle": "webpack --mode production",
+    "bundle": "./cleanup; webpack --mode production",
     "build": "babel api --out-dir dist --extensions '.ts'",
     "server": "node dist/server.js",
     "go": "npm run bundle; npm run build; npm run server"
