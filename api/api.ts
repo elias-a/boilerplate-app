@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import Router from 'koa-router';
 import { controller, Controller } from './controller';
 
 export class Api {
@@ -6,18 +6,22 @@ export class Api {
     controller: Controller;
 
     constructor(controller: Controller) {
-        this.router = Router();
+        this.router = new Router({
+            prefix: '/api'
+        });
         this.controller = controller;
 
-        this.router.get('/get-data', async (_req, res) => {
+        this.router.get('/get-data', async (ctx) => {
             const { status, result } = await this.controller.sendData();
-            res.status(status).send(result);
+            ctx.status = status;
+            ctx.body = result;
         });
 
-        this.router.post('/add-data', async (req, res) => {
-            const { data } = req.body;
+        this.router.post('/add-data', async (ctx) => {
+            const { data } = ctx.request.body;
             const { status, result } = await this.controller.addData(data);
-            res.status(status).send(result);
+            ctx.status = status;
+            ctx.body = result;
         });
     }
 }
